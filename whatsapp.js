@@ -72,20 +72,21 @@ function textEnterEvent (e) {
 
 function search () {
   var me = $("#searchBar > input");
-  var content = me.val();
+  var content = me.val().toUpperCase();
   var userListName = $(".user-information > p")
   var userList = $(".user-list");
   for (var i = 0; i < userListName.length; i++) {
     var subject = userListName.eq(i);
-    var subjectContent = subject.text();
+    var userListSpecified = userList.eq(i);
+    var subjectContent = subject.text().toUpperCase();
     if (!subjectContent.includes(content)) {
-      userList.addClass("red");
+      // userListSpecified.addClass("red");
+      userListSpecified.hide();
     } else {
-      userList.removeClass("red");
+      // userListSpecified.removeClass("red");
+      userListSpecified.show();
     }
-    console.log(subjectContent);
   }
-  console.log("contenuto: " + content);
 }
 
 
