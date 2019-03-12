@@ -104,6 +104,14 @@ header {
   margin: 0 5px;
 }
 
+#searchBar .fa-search {
+  cursor: pointer;
+}
+
+.red {
+  background-color: firebrick;
+}
+
 .user-list {
   display: flex;
   justify-content: space-around;
