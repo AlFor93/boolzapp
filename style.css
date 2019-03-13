@@ -55,9 +55,15 @@ header {
   font-weight: bold;
 }
 
-.img-profile img {
-  width: 8%;
-  height: 8%;
+.header-wrap-left .img-profile img, .user-list .img-profile img {
+  width: 25px;
+  height:25px;
+  border-radius: 50%;
+}
+
+.header-wrap-right .img-profile img {
+  width: 10%;
+  height: 10%;
   border-radius: 50%;
 }
 
@@ -108,14 +114,25 @@ header {
   cursor: pointer;
 }
 
+#user-container {
+  overflow:scroll;
+  overflow-x:hidden;
+  height: calc(100% - 10% - 15% - 10%);
+}
+
 .user-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 10%;
+  height: 60px;
   padding: 0 15px;
   border-bottom: 1px solid darkgrey;
+}
+
+.img-profile {
+  display: flex;
+  align-items: center;
 }
 
 .data-details{
@@ -132,6 +149,15 @@ header {
 
 .messages-container {
   height: 75%;
+  overflow:auto;
+}
+
+.active {
+  display:block;
+}
+
+.hidden {
+  display:none;
 }
 
 .message-form {

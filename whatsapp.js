@@ -89,7 +89,20 @@ function search () {
   }
 }
 
+function changeConversationClickingName(){
 
+  var clickedUser = $(this);
+  var indexUser = clickedUser.index();
+  var allChats = $(".wrapper-right");
+  allChats.removeClass("active");
+
+  var nextChat = allChats.eq(indexUser);
+  nextChat.addClass("active");
+
+  console.log(indexUser);
+  console.log(nextChat);
+
+}
 
 
 
@@ -106,6 +119,8 @@ function init() {
   // searchButton.click(search);
   var searchBar = $("#searchBar");
   searchBar.keyup(search);
+  var userList = $(".user-list");
+  userList.click(changeConversationClickingName);
 }
 
 
