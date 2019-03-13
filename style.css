@@ -152,10 +152,6 @@ header {
   overflow:auto;
 }
 
-.active {
-  display:block;
-}
-
 .hidden {
   display:none;
 }
@@ -211,7 +207,7 @@ header {
   padding: 0 30px;
 }
 
-#footer-form {
+.footer-form {
   width: 80%;
   height: 65%;
   border: 1px solid darkgrey;

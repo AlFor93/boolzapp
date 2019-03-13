@@ -7,8 +7,8 @@ function getLocalTime(){
     return hoursComplete;
  }
 
-function addMineMessage () {
-  var messagesContainer = $(".messages-container");
+function addMineMessage (messageTxt) {
+  var messagesContainer = $(".wrapper-right").not(".hidden").children(".messages-container");
 
   var messageForm = document.createElement("div");
   var message = document.createElement("div");
@@ -16,13 +16,11 @@ function addMineMessage () {
   var messageDetail = document.createElement("span");
   var hours = getLocalTime();
 
-  var textInput = $("#footer-form");
-
   $(messageForm).addClass("message-form");
   $(message).addClass("message sent");
   $(messageDetail).addClass("ora")
 
-  messageContent = textInput.val();
+  messageContent.innerHTML = messageTxt;
 
   messageDetail.append(hours);
 
@@ -34,10 +32,13 @@ function addMineMessage () {
   messagesContainer.append(messageForm);
 
   setTimeout(addAnswerMessage,3000);
+
+  // console.log(message)
+
 }
 
 function addAnswerMessage () {
-  var messagesContainer = $(".messages-container");
+  var messagesContainer = $(".wrapper-right").not(".hidden").children(".messages-container");
 
   var messageForm = document.createElement("div");
   var message = document.createElement("div");
@@ -62,10 +63,10 @@ function addAnswerMessage () {
 }
 
 function textEnterEvent (e) {
-  var textInput = $("#footer-form");
+  var textInput = $(this);
   var keyPress = e.which;
   if (keyPress == 13) {
-    addMineMessage();
+    addMineMessage(textInput.val());
     textInput.val("");
   }
 }
@@ -94,14 +95,10 @@ function changeConversationClickingName(){
   var clickedUser = $(this);
   var indexUser = clickedUser.index();
   var allChats = $(".wrapper-right");
-  allChats.removeClass("active");
-
+  allChats.addClass("hidden");
   var nextChat = allChats.eq(indexUser);
-  nextChat.addClass("active");
 
-  console.log(indexUser);
-  console.log(nextChat);
-
+  nextChat.removeClass("hidden");
 }
 
 
@@ -113,12 +110,12 @@ function changeConversationClickingName(){
 
 
 function init() {
-  var textInput = $("#footer-form");
+  var textInput = $(".footer > input");
   textInput.keyup(textEnterEvent);
-  // var searchButton = $(".fa-search");
-  // searchButton.click(search);
+
   var searchBar = $("#searchBar");
   searchBar.keyup(search);
+  
   var userList = $(".user-list");
   userList.click(changeConversationClickingName);
 }
