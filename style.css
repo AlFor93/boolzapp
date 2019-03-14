@@ -217,3 +217,14 @@ header {
 .footer i {
   color: #777;
 }
+
+.relative {
+  position: relative;
+}
+
+.fixedDown {
+  position: absolute;
+  right: 10px;
+  transform: translate(10%,50%);
+  text-align: center;
+}
