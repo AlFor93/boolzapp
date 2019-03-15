@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  cursor: default;
 }
 
 .container {
@@ -135,7 +136,7 @@ header {
   align-items: center;
 }
 
-.data-details{
+.data-details {
   font-size: 12px;
 }
 
@@ -148,12 +149,8 @@ header {
 }
 
 .messages-container {
-  height: 75%;
+  height: 80%;
   overflow:auto;
-}
-
-.hidden {
-  display:none;
 }
 
 .message-form {
@@ -181,6 +178,18 @@ header {
   border-radius: 10px;
 }
 
+.sent {
+  float: right;
+  background-color: #D2FFA5;
+  width: 40%;
+  margin: 0 15px;
+  border-radius: 10px;
+}
+
+.relative {
+  position: relative;
+}
+
 .ora {
   position: absolute;
   bottom: 3px;
@@ -189,12 +198,35 @@ header {
   color: darkgray;
 }
 
-.sent {
-  float: right;
-  background-color: #D2FFA5;
-  width: 40%;
-  margin: 0 15px;
+.menu {
+  position: absolute;
+  right: 10px;
+  transform: translate(6%,25%);
+  text-align: center;
+  background: #cecece;
   border-radius: 10px;
+  padding: 4px;
+  z-index: 5;
+}
+
+.menu p {
+  height: 25px;
+  vertical-align: middle;
+  line-height: 1.5;
+  color: #666;
+}
+
+.menu p:hover {
+  color: #222;
+  background-color: #c6baba;
+}
+
+.infoMex {
+  border-bottom: 1px solid #999;
+}
+
+.hidden {
+  display:none;
 }
 
 .wrapper-right .footer {
@@ -212,19 +244,9 @@ header {
   height: 65%;
   border: 1px solid darkgrey;
   border-radius: 12px;
+  cursor: auto;
 }
 
 .footer i {
   color: #777;
-}
-
-.relative {
-  position: relative;
-}
-
-.fixedDown {
-  position: absolute;
-  right: 10px;
-  transform: translate(10%,50%);
-  text-align: center;
 }

@@ -19,44 +19,76 @@ function getLocalTime (){
 //invio(la classe da aggiungere al messaggio inviato per posizionarlo correttamente),
 //activeMessageContainer (per selezionare l'effettivo container attivo, per evitare che la risposta possa
 //essere posizionata in una conversazione diversa).
-function addMineMessage (messageTxt, invio, activeMessageContainer) {
 
-  var messageForm = document.createElement("div");
-  var message = document.createElement("div");
-  var messageContent = document.createElement("span");
-  var messageDetail = document.createElement("span");
-  var hours = getLocalTime();
 
-  $(messageForm).addClass("message-form");
-  $(message).addClass(invio);
-  $(messageDetail).addClass("ora")
+// function addMineMessage (messageTxt, invio, activeMessageContainer) {
+//
+//   var messageForm = document.createElement("div");
+//   var message = document.createElement("div");
+//   var messageContent = document.createElement("span");
+//   var messageDetail = document.createElement("span");
+//   var hours = getLocalTime();
+//
+//   $(messageForm).addClass("message-form");
+//   $(message).addClass(invio);
+//   $(messageDetail).addClass("ora")
+//
+//   if (invio == "message received" ) {
+//     $(messageContent).text("YuppiDuppi!");
+//   } else {
+//     messageContent.innerHTML = messageTxt;
+//   }
+//
+//   messageDetail.append(hours);
+//
+//   message.append(messageContent);
+//   message.append(messageDetail);
+//
+//   messageForm.append(message);
+//
+//   activeMessageContainer.append(messageForm);
+//
+// }
+function addMessageHB (messageTxt, invio, activeMessageContainer) {
 
-  if (invio == "message received" ) {
-    $(messageContent).text("YuppiDuppi!");
-  } else {
-    messageContent.innerHTML = messageTxt;
-  }
+  var data = {
+    tipoInvio : invio,
+    testo : function (){
+      if (invio == "received" ) {
+          var testo = "YuppiDuppi!";
+      } else {
+        var testo = messageTxt;
+      }
+      return testo;
+    },
+    ora : getLocalTime()
+  };
 
-  messageDetail.append(hours);
+  var template = $("#box-template").html();
+  var compiled = Handlebars.compile(template);
+  var finalMessageFormHtml = compiled(data);
 
-  message.append(messageContent);
-  message.append(messageDetail);
-
-  messageForm.append(message);
-
-  activeMessageContainer.append(messageForm);
+  activeMessageContainer.append(finalMessageFormHtml);
 
 }
+
+
 //FUNZIONE PER INVIARE IL MESSAGGIO AL CLICK DI INVIO
 function textEnterEvent (e) {
   var textInput = $(this);
   var activeMessageContainer =  $(".wrapper-right").not(".hidden").children(".messages-container");
   var keyPress = e.which;
   if (keyPress == 13) {
-    addMineMessage(textInput.val(), "message sent" , activeMessageContainer);
+    addMessageHB(textInput.val(), "sent" , activeMessageContainer);
+    // addMineMessage(textInput.val(), "message sent", activeMessageContainer);
+
     textInput.val("");
+    activeMessageContainer.animate({scrollTop: activeMessageContainer.prop("scrollHeight")},0);
     setTimeout(function(){
-      addMineMessage(textInput.val(), "message received", activeMessageContainer);
+      addMessageHB(textInput.val(), "received", activeMessageContainer);
+      // addMineMessage(textInput.val(), "message received", activeMessageContainer);
+      //funzione per far scrollare in automatico la pagina verso il fondo della chat
+      activeMessageContainer.animate({scrollTop: activeMessageContainer.prop("scrollHeight")});
     },3000);
   }
 }
@@ -91,22 +123,35 @@ function changeConversationClickingName (){
   nextChat.removeClass("hidden");
 }
 //FUNZIONE PER FAR APPARIRE IL MENU PER LA CANCELLAZIONE DEL MESSAGGIO
+// function showMenu () {
+//   var menuContainer = document.createElement("div");
+//   var menuOption1 = document.createElement("p");
+//   var menuOption2 = document.createElement("p");
+//   var selectedMessage = $(this);
+//
+//   $(menuContainer).addClass("fixedDown").css("backgroundColor","#cecece");
+//   selectedMessage.addClass("relative");
+//
+//   $(menuOption1).text("Info messaggio");
+//   $(menuOption2).text("Cancella messaggio");
+//
+//   menuContainer.append(menuOption1);
+//   menuContainer.append(menuOption2);
+//   selectedMessage.append(menuContainer);
+//   console.log(selectedMessage)
+// }
 function showMenu () {
-  var menuContainer = document.createElement("div");
-  var menuOption1 = document.createElement("p");
-  var menuOption2 = document.createElement("p");
   var selectedMessage = $(this);
+  var menu = selectedMessage.children(".menu");
+  menu.toggleClass("hidden");
+}
+//FUNZIONE PER CANCELLARE UN MESSAGGIO
+function deleteSelectedMessage () {
+  var deleteButton = $(this);
+  var menu = deleteButton.parent();
+  var message = menu.parent();
 
-  $(menuContainer).addClass("fixedDown").css("backgroundColor","#cecece");
-  selectedMessage.addClass("relative");
-
-  $(menuOption1).text("Info messaggio");
-  $(menuOption2).text("Cancella messaggio");
-
-  menuContainer.append(menuOption1);
-  menuContainer.append(menuOption2);
-  selectedMessage.append(menuContainer);
-  console.log(selectedMessage)
+  message.remove()
 }
 
 
@@ -126,9 +171,10 @@ function init() {
   //Richiamo alla funzione per cambiare conversazione
   var userList = $(".user-list");
   userList.click(changeConversationClickingName);
-  //
-  var selectedMessage =  $(".wrapper-right").find(".message");
-  selectedMessage.click(showMenu);
+  //richiamo alla funzione per aprire il menu per la cancellazione del messaggio
+  $(document).on("click",".message",showMenu);
+  //richiamo alla funzione per cancellare i messaggi
+  $(document).on("click",".delete-mex",deleteSelectedMessage);
 }
 
 
