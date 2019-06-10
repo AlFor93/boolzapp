@@ -15,5 +15,7 @@ Si può mandare un messaggio a uno qualunque dei contatti e riceveremo una rispo
 
 # Screenshot
 
-![](screenshot_1.jpg)
+![](Screenshot_1.jpg)
+
+<hr>
 
