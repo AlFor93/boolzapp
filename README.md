@@ -19,3 +19,5 @@ Si può mandare un messaggio a uno qualunque dei contatti e riceveremo una rispo
 
 <hr>
 
+![](Screenshot_2.jpg)
+
